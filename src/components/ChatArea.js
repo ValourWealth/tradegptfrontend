@@ -742,13 +742,14 @@
 // };
 
 // export default ChatArea;
+
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import PromptCard from "./PromptCard";
 import TradingPromptsInline from "./TradingPromptsInline";
 
-const BACKEND_URL = "https://backendoftradegpt-production.up.railway.app";
+const BACKEND_URL = "tradegptbackend-production.up.railway.app";
 
 // ADD: Update props to include prompts functionality
 const ChatArea = ({
@@ -768,7 +769,6 @@ const ChatArea = ({
   const [activeSessionId, setActiveSessionId] = useState(null);
   const token = new URLSearchParams(window.location.search).get("token");
   const isLikelyHTML = (text) => /<\/?(h\d|p|ul|li|b|br)/i.test(text);
-
 
   // ... (all your existing functions remain the same: cleanAndFormat, scrollToBottom, etc.)
   const FINNHUB_API_KEY = "d08gifhr01qh1ecc2v7gd08gifhr01qh1ecc2v80";
@@ -1438,33 +1438,34 @@ const ChatArea = ({
                       ))}
                     </div>
                   ) : msg.stage === "streaming" ? (
-  isLikelyHTML(msg.partialText) ? (
-    <div
-      className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed"
-      dangerouslySetInnerHTML={{ __html: msg.partialText }}
-    />
-  ) : (
-    <ReactMarkdown
-      className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed"
-      linkTarget="_blank"
-      children={(msg.partialText || "").replace(/\*\*/g, "")}
-    />
-  )
-) : msg.stage === "final" ? (
-  isLikelyHTML(msg.text) ? (
-    <div
-      className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed"
-      dangerouslySetInnerHTML={{ __html: msg.text }}
-    />
-  ) : (
-    <ReactMarkdown className="prose prose-invert max-w-none whitespace-pre-wrap break-words">
-      {msg.text || ""}
-    </ReactMarkdown>
-  )
-) : (
-  <p className="whitespace-pre-line break-words">{msg.text || ""}</p>
-)}
-
+                    isLikelyHTML(msg.partialText) ? (
+                      <div
+                        className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: msg.partialText }}
+                      />
+                    ) : (
+                      <ReactMarkdown
+                        className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed"
+                        linkTarget="_blank"
+                        children={(msg.partialText || "").replace(/\*\*/g, "")}
+                      />
+                    )
+                  ) : msg.stage === "final" ? (
+                    isLikelyHTML(msg.text) ? (
+                      <div
+                        className="prose prose-invert max-w-none whitespace-pre-wrap break-words leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: msg.text }}
+                      />
+                    ) : (
+                      <ReactMarkdown className="prose prose-invert max-w-none whitespace-pre-wrap break-words">
+                        {msg.text || ""}
+                      </ReactMarkdown>
+                    )
+                  ) : (
+                    <p className="whitespace-pre-line break-words">
+                      {msg.text || ""}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
