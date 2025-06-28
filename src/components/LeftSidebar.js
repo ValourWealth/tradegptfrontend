@@ -4,7 +4,7 @@ import UserProfileModal from "./UserProfileModal";
 
 // import jwt_decode from "jwt-decode";
 import { jwtDecode } from "jwt-decode";
-const BACKEND_URL = "https://backendoftradegpt-production.up.railway.app";
+const BACKEND_URL = "https://tradegptbackend-production.up.railway.app";
 const LeftSidebar = ({
   collapsed,
   toggleSidebar,

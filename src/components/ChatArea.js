@@ -4,7 +4,8 @@ import ReactMarkdown from "react-markdown";
 import PromptCard from "./PromptCard";
 import TradingPromptsInline from "./TradingPromptsInline";
 
-const BACKEND_URL = "https://backendoftradegpt-production.up.railway.app";
+const BACKEND_URL = "https://tradegptbackend-production.up.railway.app"
+;
 
 // ADD: Update props to include prompts functionality
 const ChatArea = ({

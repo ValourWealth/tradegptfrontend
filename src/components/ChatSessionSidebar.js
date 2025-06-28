@@ -10,7 +10,7 @@ const ChatSessionSidebar = ({ token, onSessionSelect, activeSessionId }) => {
     const fetchSessions = async () => {
       try {
         const res = await axios.get(
-          `https://backendoftradegpt-production.up.railway.app/api/chat/user-sessions/?token=${token}`
+          `https://tradegptbackend-production.up.railway.app/api/chat/user-sessions/?token=${token}`
         );
         setSessions(res.data);
       } catch (err) {
