@@ -810,6 +810,7 @@ const ChatArea = ({
   //       .trim()
   //   );
   // }
+
   function cleanAndFormat(text) {
     return (
       text
