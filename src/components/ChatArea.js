@@ -830,6 +830,14 @@ const ChatArea = ({
           /\b(Recommendations|Analysis|Summary|Key Observations|Price Movements|Response to User)\b/g,
           "\n\n$1"
         )
+        .replace(
+          /\b(StockSnapshot|CompanyOverview|KeyObservations|NewsHeadlines|Technical|TradeIdeas|FinancialRisks|AnalystRecommendations|TradingStrategy|RiskManagement|RecentNews|Metric|GrowthOutlook|RisksandChallenges)\b/g,
+          "\n\n### $1"
+        )
+
+        .replace(/([a-z])([A-Z])/g, "$1 $2") // already correct
+        .replace(/([a-zA-Z])(\d)/g, "$1 $2") // fix letters & numbers stuck together
+        .replace(/(\d)([a-zA-Z])/g, "$1 $2") // fix numbers & letters stuck together
 
         // Bullet points (if line starts with key: value)
         .replace(/([A-Za-z0-9\(\)\/%$\- ]+):\s*([^\n]+)/g, "- **$1:** $2")
