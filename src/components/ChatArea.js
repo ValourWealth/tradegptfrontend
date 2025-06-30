@@ -814,7 +814,6 @@ const ChatArea = ({
   function cleanAndFormat(text) {
     return (
       text
-        // Decode basic HTML entities
         .replace(/&nbsp;?/g, " ")
         .replace(/&amp;/g, "&")
         .replace(/&lt;/g, "<")
@@ -822,39 +821,28 @@ const ChatArea = ({
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
 
-        // Fix glued words like AppleInc → Apple Inc
+        // Fix glued words & numbers
         .replace(/([a-z])([A-Z])/g, "$1 $2")
+        .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
+        .replace(/([a-zA-Z])(\d)/g, "$1 $2")
+        .replace(/(\d)([a-zA-Z])/g, "$1 $2")
 
-        // Insert line breaks before section headers if missing
-        .replace(
-          /\b(Recommendations|Analysis|Summary|Key Observations|Price Movements|Response to User)\b/g,
-          "\n\n$1"
-        )
+        // Section headers
         .replace(
           /\b(StockSnapshot|CompanyOverview|KeyObservations|NewsHeadlines|Technical|TradeIdeas|FinancialRisks|AnalystRecommendations|TradingStrategy|RiskManagement|RecentNews|Metric|GrowthOutlook|RisksandChallenges)\b/g,
           "\n\n### $1"
         )
 
-        .replace(/([a-z])([A-Z])/g, "$1 $2") // already correct
-        .replace(/([a-zA-Z])(\d)/g, "$1 $2") // fix letters & numbers stuck together
-        .replace(/(\d)([a-zA-Z])/g, "$1 $2") // fix numbers & letters stuck together
-
-        // Bullet points (if line starts with key: value)
         .replace(/([A-Za-z0-9\(\)\/%$\- ]+):\s*([^\n]+)/g, "- **$1:** $2")
 
-        // Remove markdown syntax
         .replace(/\*\*(.*?)\*\*/g, "$1")
         .replace(/\*(.*?)\*/g, "$1")
         .replace(/`{1,3}(.*?)`{1,3}/g, "$1")
 
-        // Normalize headings
         .replace(/#{2,6}\s*(\d+\.\s?[A-Z][^\n]+)/g, "\n\n$1")
         .replace(/#{3,6}\s*/g, "\n\n### ")
-
-        // Replace hyphen separators
         .replace(/-{3,}/g, "\n\n---\n\n")
 
-        // Clean up newlines and spacing
         .replace(/\n{3,}/g, "\n\n")
         .replace(/\s{2,}/g, " ")
         .trim()
